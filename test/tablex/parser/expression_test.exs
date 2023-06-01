@@ -23,6 +23,22 @@ defmodule Tablex.Parser.ExpressionTest do
     end
   end
 
+  describe "Parsing ISO 8601 date" do
+    test "works for YYYY-MM-DD" do
+      assert_parse("2014-09-18", ~D[2014-09-18])
+    end
+    test "fails for bad month" do
+      assert_raise ArgumentError, fn ->
+        parse("2014-13-18")
+      end
+    end
+    test "fails for bad day" do
+      assert_raise ArgumentError, fn ->
+        parse("2014-08-32")
+      end
+    end
+  end
+
   describe "Parsing numeric" do
     test "works with simple digits" do
       assert_parse("1", 1)

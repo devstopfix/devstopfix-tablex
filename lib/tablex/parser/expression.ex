@@ -4,6 +4,7 @@ defmodule Tablex.Parser.Expression do
   import NimbleParsec
 
   import Tablex.Parser.Expression.Any
+  import Tablex.Parser.Expression.Date
   import Tablex.Parser.Expression.Numeric
   import Tablex.Parser.Expression.Range
   import Tablex.Parser.Expression.List
@@ -18,6 +19,7 @@ defmodule Tablex.Parser.Expression do
       list(),
       any(),
       range(),
+      date(),
       numeric(),
       bool(),
       null(),

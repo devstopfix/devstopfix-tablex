@@ -96,6 +96,7 @@ Currently the following types are supported:
 - number
 - string
 - bool
+- date (ISO 8601)
 
 When types are specified, the input value shall be of the same type as specified.
 
@@ -134,7 +135,6 @@ Currently only these types are supported:
 
 The following types of expressions are planned:
 
-- date
 - time
 - datetime
 - function
@@ -334,7 +334,7 @@ end
 * [x] support functions in output entries
 * [ ] support input validation
 * [ ] support output validation
-* [ ] support Date data type
+* [x] support Date data type ISO 8601
 * [ ] support Time data type
 * [ ] support DateTime data type
 * [x] vertical tables
