@@ -3,7 +3,7 @@ defmodule Tablex.Parser.Expression.Comparison do
 
   import NimbleParsec
   import Tablex.Parser.Space
-  import Tablex.Parser.Expression.Numeric
+  import Tablex.Parser.Expression.{Date, Numeric}
 
   def comparison do
     choice([
@@ -14,7 +14,7 @@ defmodule Tablex.Parser.Expression.Comparison do
       string("<")
     ])
     |> optional_space()
-    |> concat(numeric())
+    |> concat(choice([date(), numeric()]))
     |> reduce({__MODULE__, :trans_comparison, []})
   end
 

@@ -182,6 +182,12 @@ defmodule Tablex.Decider do
   def match_expect?({:<, x}, value) when is_number(value) and value < x, do: true
   def match_expect?({:<=, x}, value) when is_number(value) and value <= x, do: true
 
+  def match_expect?({:!=, x = %Date{}}, value = %Date{}), do: Date.compare(value, x) != :eq
+  def match_expect?({:>, x = %Date{}}, value = %Date{}), do: Date.compare(value, x) == :gt
+  def match_expect?({:>=, x = %Date{}}, value = %Date{}), do: Date.compare(value, x) in [:gt, :eq]
+  def match_expect?({:<, x= %Date{}}, value= %Date{}), do: Date.compare(value, x) == :lt
+  def match_expect?({:<=, x = %Date{}}, value = %Date{}), do: Date.compare(value, x) in [:lt, :eq]
+
   def match_expect?(:any, _), do: true
   def match_expect?(expect, expect), do: true
   def match_expect?(_, _), do: false
@@ -200,6 +206,8 @@ defmodule Tablex.Decider do
     v = put_recursively(%{}, rest, value)
     Map.update(acc, head, v, &Map.merge(&1, v))
   end
+
+  defp maybe_exec_code(nil, _binding, _opts), do: nil
 
   defp maybe_exec_code(output, binding, opts) do
     Map.new(output, fn
