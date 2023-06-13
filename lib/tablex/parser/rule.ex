@@ -35,7 +35,7 @@ defmodule Tablex.Parser.Rule do
       concat(expression(), space()),
       {__MODULE__, :not_separator, []}
     )
-    |> concat(separator())
+    |> concat(io_separator())
     |> space()
     |> concat(
       output_expression()
@@ -60,7 +60,7 @@ defmodule Tablex.Parser.Rule do
   def not_separator(_rest, context, _, _),
     do: {:cont, context}
 
-  def separator do
+  def io_separator do
     string("||") |> replace(:||)
   end
 

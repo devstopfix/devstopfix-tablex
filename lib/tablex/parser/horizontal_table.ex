@@ -12,17 +12,17 @@ defmodule Tablex.Parser.HorizontalTable do
   def h_table do
     choice([
       collect_hit_policy()
-      |> space()
+      |> separator()
       |> times(input_field(), min: 0)
       |> label("`C` hit policy and optional input fields"),
       regular_hit_policy()
-      |> space()
+      |> separator()
       |> times(input_field(), min: 1)
       |> label("input definitions")
     ])
     |> label("table header")
     |> concat(io_sperator())
-    |> concat(space())
+    |> concat(separator())
     |> times(output_field(), min: 1)
     |> newline()
     |> concat(informative_row() |> newline() |> unwrap_and_tag(:info) |> optional())
@@ -48,7 +48,7 @@ defmodule Tablex.Parser.HorizontalTable do
 
   def input_field do
     variable()
-    |> space()
+    |> separator()
     |> unwrap_and_tag(:input)
   end
 
