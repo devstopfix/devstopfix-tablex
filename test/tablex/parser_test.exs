@@ -2,23 +2,48 @@ defmodule Tablex.ParserTest do
   alias Tablex.Table
   use ExUnit.Case
 
-  test "basic parser" do
-    box = """
-    F   Day (string)    Weather (string) || Activity
-    1   Monday,Tuesday  sunny            || walk
-    """
+  describe "Fixed width" do
+    test "basic parser" do
+      box = """
+      F   Day (string)    Weather (string) || Activity
+      1   Monday,Tuesday  sunny            || walk
+      """
 
-    assert %Table{
-             hit_policy: :first_hit,
-             inputs: [
-               %{name: :day, type: :string},
-               %{name: :weather, type: :string}
-             ],
-             outputs: [%{name: :activity, type: :undefined}],
-             rules: [
-               [1, input: [["Monday", "Tuesday"], "sunny"], output: ["walk"]]
-             ]
-           } = Tablex.Parser.parse(box, [])
+      assert %Table{
+               hit_policy: :first_hit,
+               inputs: [
+                 %{name: :day, type: :string},
+                 %{name: :weather, type: :string}
+               ],
+               outputs: [%{name: :activity, type: :undefined}],
+               rules: [
+                 [1, input: [["Monday", "Tuesday"], "sunny"], output: ["walk"]]
+               ]
+             } = Tablex.Parser.parse(box, [])
+    end
+  end
+
+  describe "Tab separated" do
+    test "basic parser" do
+      box = """
+      F\tDay (string)\tWeather (string)\t||\tActivity
+      1\tMonday,Tuesday\tsunny\t|| walk
+      """
+
+      IO.inspect(box)
+
+      assert %Table{
+               hit_policy: :first_hit,
+               inputs: [
+                 %{name: :day, type: :string},
+                 %{name: :weather, type: :string}
+               ],
+               outputs: [%{name: :activity, type: :undefined}],
+               rules: [
+                 [1, input: [["Monday", "Tuesday"], "sunny"], output: ["walk"]]
+               ]
+             } = Tablex.Parser.parse(box, [])
+    end
   end
 
   describe "Multiple rules" do

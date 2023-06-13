@@ -3,6 +3,12 @@ defmodule Tablex.Parser.Space do
 
   import NimbleParsec
 
+  def separator(combinator \\ empty()) do
+    single_tab = string("\t")
+    spaces = times(string(" "), min: 1)
+    concat(combinator, ignore(choice([single_tab, spaces])))
+  end
+
   def space(combinitor \\ empty()) do
     combinitor
     |> concat(" " |> string() |> times(min: 1) |> ignore())
