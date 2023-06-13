@@ -30,19 +30,19 @@ defmodule Tablex.Parser.Rule do
 
   def rule do
     integer(min: 1)
-    |> space()
+    |> separator()
     |> repeat_while(
-      concat(expression(), space()),
+      concat(expression(), separator()),
       {__MODULE__, :not_separator, []}
     )
     |> concat(io_separator())
-    |> space()
+    |> separator()
     |> concat(
       output_expression()
       |> concat(
         times(
           concat(
-            space(),
+            separator(),
             output_expression()
           ),
           min: 0

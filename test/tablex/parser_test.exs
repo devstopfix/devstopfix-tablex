@@ -27,7 +27,7 @@ defmodule Tablex.ParserTest do
     test "basic parser" do
       box = """
       F\tDay (string)\tWeather (string)\t||\tActivity
-      1 Monday,Tuesday sunny || walk
+      1\tMonday,Tuesday\tsunny\t|| walk
       """
 
       IO.inspect(box)
