@@ -17,13 +17,8 @@ defmodule Tablex.Parser do
 
   import NimbleParsec
   import Tablex.Parser.HorizontalTable
-  import Tablex.Parser.VerticalTable
 
-  table =
-    choice([
-      h_table() |> tag(:horizontal),
-      v_table() |> tag(:vertical)
-    ])
+  table = tag(h_table(), :horizontal)
 
   defparsec(:table, table, debug: false)
 

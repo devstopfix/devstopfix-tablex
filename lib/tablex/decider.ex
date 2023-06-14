@@ -144,8 +144,7 @@ defmodule Tablex.Decider do
           end
       end)
 
-    all_hit =
-      acc |> Map.values() |> Enum.all?(&(&1 != :undefined))
+    all_hit = acc |> Map.values() |> Enum.all?(&(&1 != :undefined))
 
     if all_hit, do: {:halt, acc}, else: {:cont, acc}
   end
