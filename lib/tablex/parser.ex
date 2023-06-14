@@ -20,7 +20,7 @@ defmodule Tablex.Parser do
 
   table = tag(h_table(), :horizontal)
 
-  defparsec(:table, table, debug: true)
+  defparsec(:table, table, debug: false)
 
   @doc """
   Parse a string into a table struct.
