@@ -2,7 +2,6 @@ defmodule Tablex.Parser.Rule do
   @moduledoc false
 
   import NimbleParsec
-  import Tablex.Parser.Code
   import Tablex.Parser.Expression
   import Tablex.Parser.Space
 
@@ -65,10 +64,7 @@ defmodule Tablex.Parser.Rule do
   end
 
   def output_expression do
-    choice([
-      code(),
-      expression()
-    ])
+    expression()
   end
 
   @doc false
