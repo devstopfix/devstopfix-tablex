@@ -74,11 +74,11 @@ defmodule Tablex.Table do
     end
 
     inputs =
-      Stream.zip(table.inputs, input_info)
+      Enum.zip(table.inputs, input_info)
       |> Enum.map(apply_info)
 
     outputs =
-      Stream.zip(table.outputs, output_info)
+      Enum.zip(table.outputs, output_info)
       |> Enum.map(apply_info)
 
     %{table | inputs: inputs, outputs: outputs}
@@ -124,7 +124,7 @@ defmodule Tablex.Table do
 
     rule_numbers = parsed[:rule_numbers]
 
-    Stream.zip([rule_numbers, condition_matrix, value_matrix])
+    Enum.zip([rule_numbers, condition_matrix, value_matrix])
     |> Enum.map(fn {nu, inputs, outputs} ->
       [nu, {:input, Tuple.to_list(inputs)}, {:output, Tuple.to_list(outputs)}]
     end)
@@ -144,7 +144,7 @@ defmodule Tablex.Table do
 
     rule_numbers = parsed[:rule_numbers]
 
-    Stream.zip([rule_numbers, value_matrix])
+    Enum.zip([rule_numbers, value_matrix])
     |> Enum.map(fn {nu, outputs} ->
       [nu, {:input, []}, {:output, Tuple.to_list(outputs)}]
     end)

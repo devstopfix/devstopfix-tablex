@@ -64,7 +64,7 @@ defmodule Tablex.Decider do
 
   defp rules(%Table{rules: rules, inputs: inputs, outputs: outputs}) do
     rules
-    |> Stream.map(fn [n, input: input_values, output: output_values] ->
+    |> Enum.map(fn [n, input: input_values, output: output_values] ->
       {n, condition(input_values, inputs), output(output_values, outputs)}
     end)
     |> Enum.sort_by(fn {n, _, _} -> n end)
@@ -104,10 +104,10 @@ defmodule Tablex.Decider do
   defp collect(context, %Table{} = table) do
     table
     |> rules()
-    |> Stream.filter(fn {condition, _} ->
+    |> Enum.filter(fn {condition, _} ->
       match_rule?(condition, context)
     end)
-    |> Stream.map(fn {_condition, outputs} ->
+    |> Enum.map(fn {_condition, outputs} ->
       flatten_path(outputs)
     end)
     |> Enum.to_list()
@@ -118,10 +118,10 @@ defmodule Tablex.Decider do
 
     table
     |> rules()
-    |> Stream.filter(fn {condition, _} ->
+    |> Enum.filter(fn {condition, _} ->
       match_rule?(condition, context)
     end)
-    |> Stream.map(fn {_condition, outputs} ->
+    |> Enum.map(fn {_condition, outputs} ->
       outputs
     end)
     |> Enum.reduce_while(empty, &merge_if_containing_undf/2)
