@@ -11,8 +11,7 @@ defmodule Tablex.Parser.RuleTest do
   doctest Rule
 
   test "it works with a simple rule" do
-    assert {:ok, [rules: [[1, input: [1], output: [1]]]], _, _, _, _} =
-             parse("1 1 || 1")
+    assert {:ok, [rules: [[1, input: [1], output: [1]]]], _, _, _, _} = parse("1 1 || 1")
   end
 
   test "it works with numbers" do
